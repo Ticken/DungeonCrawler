@@ -18,7 +18,7 @@ public class Settings {
         this.game = game;
     }
 
-    public void saveToFile(String settingName, String settingValue){
+    public void saveToFile(){
         Properties prop = new Properties();
         OutputStream output = null;
 
@@ -49,7 +49,7 @@ public class Settings {
         }
     }
 
-    public void loadFromFile(String settingName){
+    public void loadFromFile(){
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -77,5 +77,13 @@ public class Settings {
                 }
             }
         }
+    }
+
+    public void setToDefault(){
+        guiScale = 1.0f;
+        volumeGlobal = 1.0f;
+        volumeMusic = 1.0f;
+        volumeSound = 1.0f;
+        saveToFile();
     }
 }
