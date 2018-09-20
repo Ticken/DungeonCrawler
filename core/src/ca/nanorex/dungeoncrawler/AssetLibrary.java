@@ -2,9 +2,9 @@ package ca.nanorex.dungeoncrawler;
 
 public class AssetLibrary {
 
-    DungeonCrawler dungeonCrawler;
+    DungeonCrawler game;
 
-    public AssetLibrary(DungeonCrawler _dungeonCrawler){
-        dungeonCrawler = _dungeonCrawler;
+    public AssetLibrary(DungeonCrawler game){
+        this.game = game;
     }
 }

@@ -9,14 +9,14 @@ import ca.nanorex.dungeoncrawler.game.world.GameWorld;
 
 public class GameScreen implements Screen {
 
-    DungeonCrawler dungeonCrawler;
+    DungeonCrawler game;
 
     // Game Things
     GameCamera gameCamera;
     GameWorld gameWorld;
 
-    public GameScreen(DungeonCrawler _dungeonCrawler){
-        dungeonCrawler = _dungeonCrawler;
+    public GameScreen(DungeonCrawler game){
+        this.game = game;
 
         // Create Game Things
         gameCamera = new GameCamera();
