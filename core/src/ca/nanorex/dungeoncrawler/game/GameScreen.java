@@ -2,10 +2,15 @@ package ca.nanorex.dungeoncrawler.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 
-import ca.nanorex.dungeoncrawler.DungeonCrawler;
+import java.security.Key;
+
+import ca.nanorex.dungeoncrawler.game.utils.RectCollision;
+import ca.nanorex.dungeoncrawler.game.utils.TestRectangle;
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
 
 /**
@@ -15,9 +20,13 @@ public class GameScreen implements Screen {
 
     Game game;
 
+    // Collision Test stuff
+    TestRectangle test1 = new TestRectangle("squareGreen.png"), test2 = new TestRectangle("squareBlue.png");
+
     // Game Things
     GameCamera gameCamera;
     GameWorld gameWorld;
+    RectCollision rectCollision;
 
     private static final int TICK_RATE = 30;
     private static final float TICK_PERIOD = 1 / TICK_RATE;
@@ -31,8 +40,55 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Create Game Things
-        gameCamera = new GameCamera();
+        gameCamera = new GameCamera(this, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gameWorld = new GameWorld(this);
+        rectCollision = new RectCollision();
+
+        test1.setPosition(0, 0);
+        test1.setSize(100, 100);
+        test1.setVelocity(new Vector2(0, 0));
+
+        test2.setPosition(300, 0);
+        test2.setSize(100, 100);
+        test2.setVelocity(new Vector2(0, 0));
+    }
+
+    private void testRender(){
+        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+            test1.setVelocity(new Vector2(0 ,1));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            test1.setVelocity(new Vector2(0 ,-1));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            test1.setVelocity(new Vector2(-1 ,0));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            test1.setVelocity(new Vector2(1 ,0));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            test2.setVelocity(new Vector2(0 ,1));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            test2.setVelocity(new Vector2(0 ,-1));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            test2.setVelocity(new Vector2(-1 ,0));
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            test2.setVelocity(new Vector2(1 ,0));
+        }
+
+        if(rectCollision.isColliding(test1.getRect(), test2.getRect())) {
+            test1.setIsHit(true);
+            test2.setIsHit(true);
+        } else {
+            test1.setIsHit(false);
+            test2.setIsHit(false);
+        }
+
+        test1.render();
+        test2.render();
     }
 
     @Override
@@ -84,8 +140,10 @@ public class GameScreen implements Screen {
         }
 
         //Temporary code
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        testRender();
     }
 
     @Override
