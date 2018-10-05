@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-import ca.nanorex.dungeoncrawler.DungeonCrawler;
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
 
 /**
@@ -13,26 +12,34 @@ import ca.nanorex.dungeoncrawler.game.world.GameWorld;
  */
 public class GameScreen implements Screen {
 
-    Game game;
+    private Game game;
 
     // Game Things
-    GameCamera gameCamera;
-    GameWorld gameWorld;
+    private GameCamera camera;
+    private GameWorld world;
 
     private static final int TICK_RATE = 30;
     private static final float TICK_PERIOD = 1 / TICK_RATE;
-    private static final int MAX_FPS = 120;
+    private static final int MAX_FPS = 120; //Maybe change this to max framerate of device?
     private static final float MAX_FPS_PERIOD = 1 / MAX_FPS;
 
     private float tickAccumulator, frameAccumulator;
     private float tickRate, frameRate;
 
+    /**
+     * Default constructor for GameScreen
+     *
+     * @param game The Game object that uses this Screen
+     */
     public GameScreen(Game game) {
         this.game = game;
 
         // Create Game Things
-        gameCamera = new GameCamera();
-        gameWorld = new GameWorld(this);
+        camera = new GameCamera(this, 0, 0);
+        world = new GameWorld(this);
+
+        tickAccumulator = 0;
+        frameAccumulator = 0;
     }
 
     @Override
