@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+// JTest Stuff
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ca.nanorex.dungeoncrawler.DungeonCrawler;
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
@@ -27,12 +30,27 @@ public class GameScreen implements Screen {
     private float tickAccumulator, frameAccumulator;
     private float tickRate, frameRate;
 
+    // JTest Stuff
+    SpriteBatch batch;
+    OrthographicCamera camera;
+    Player player;
+    float i;
+
     public GameScreen(Game game) {
         this.game = game;
 
         // Create Game Things
         gameCamera = new GameCamera();
         gameWorld = new GameWorld(this);
+
+
+        // JTest stuff
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        //tex = new Texture(Gdx.files.internal("data/hello.png"));
+        //reg = new TextureRegion(tex, 50, 0, 100, 100);
+        player = new Player();
+        i = 0;
     }
 
     @Override
@@ -83,9 +101,17 @@ public class GameScreen implements Screen {
             frameAccumulator %= MAX_FPS_PERIOD;
         }
 
+
         //Temporary code
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(1, (float)(165/255.0), 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // JTest Stuff
+        batch.begin();
+        RendererComponent player_renderer = player.getComponent(RendererComponent.class);
+        i = (i + 0.1f) % 16;
+        batch.draw(player_renderer.getFrame("main", (int)(i)),0,0);
+        batch.end();
     }
 
     @Override

@@ -42,6 +42,7 @@ public class DungeonCrawler extends Game {
             case 0:
                 // GameScreen
                 setScreen(screenGame);
+
                 break;
             // Add more cases as screens get added
             default:
