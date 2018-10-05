@@ -15,21 +15,22 @@ public abstract class ObjectComponent implements Serializable {
 
     static {
         order = new Class<?>[] {
-            //ControllerComponent.class,
-            //MovementComponent.class,
-            //AttackComponent.class,
-            //InventoryComponent.class,
-            //CollisionComponent.class,
-            //HealthComponent.class,
-            //RenderComponent.class,
+            ControllerComponent.class,
+            MovementComponent.class,
+            ColliderComponent.class,
+            CollidedComponent.class,
+            AttackComponent.class,
+            VulnerabilityComponent.class,
+            HealthComponent.class
+            //RendererComponent.class,
             //SoundComponent.class
         };
     }
 
-    private GameObject object;
-    private Map<String, Stat> stats;
-    private TreeMap<String, TickTimer> timers;
-    //private Queue<Event> events;
+    protected GameObject object;
+    protected Map<String, Stat> stats;
+    protected TreeMap<String, TickTimer> timers;
+    //protected Queue<Event> events;
 
     public ObjectComponent(GameObject object) {
         this.object = object;
@@ -40,6 +41,11 @@ public abstract class ObjectComponent implements Serializable {
 
     public abstract void update();
 
-    public Stat getStat(String stat) { return stats.get(stat); }
-    public TickTimer getTimer(String timer) { return timers.get(timer); }
+    public Stat getStat(String stat) {
+        return stats.get(stat);
+    }
+
+    public TickTimer getTimer(String timer) {
+        return timers.get(timer);
+    }
 }
