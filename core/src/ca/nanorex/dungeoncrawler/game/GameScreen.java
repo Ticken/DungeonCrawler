@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Create Game Things
-        gameCamera = new GameCamera();
+        gameCamera = new GameCamera(this, 0, 0);
         gameWorld = new GameWorld(this);
     }
 
