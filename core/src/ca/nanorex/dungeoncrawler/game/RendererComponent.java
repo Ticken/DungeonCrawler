@@ -19,7 +19,7 @@ public class RendererComponent extends ObjectComponent {
                              String sprite_sheet_path,
                              int tile_width,
                              int tile_height,
-                             Map<String, int[]> animationMap) {
+                             Map<String, AnimationInfo> animationMap) {
         super(object);
         Texture tex = new Texture(Gdx.files.internal(sprite_sheet_path));
         sprite_sheet = new TextureRegion(tex);
@@ -27,16 +27,9 @@ public class RendererComponent extends ObjectComponent {
         animations = new HashMap();
 
         for (String name: animationMap.keySet()) {
-            int[] coords = animationMap.get(name);
-            final int COORDS_LENGTH = 3;
-            if(coords.length != COORDS_LENGTH)
-                System.out.println("WARNING: there are not " + COORDS_LENGTH + " co-ordinates specified for " +
-                        "animation: " + name);
-
-            Array<TextureRegion> temp = new Array(true, tiles[coords[0]], coords[1], coords[2]);
-
+            int[] info = animationMap.get(name).getInfo();
+            Array<TextureRegion> temp = new Array(true, tiles[info[0]], info[1], info[2]);
             Animation<TextureRegion> temp2 = new Animation<TextureRegion>(1, temp);
-
             animations.put(name, temp2);
         }
     }

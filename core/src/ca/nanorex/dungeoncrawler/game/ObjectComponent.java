@@ -10,7 +10,7 @@ public abstract class ObjectComponent implements Serializable {
     public static final Class[] order;
     static {
         order = new Class[] {
-            //ControllerComponent.class,
+            ControllerComponent.class,
             //MovementComponent.class,
             //AttackComponent.class,
             //InventoryComponent.class,

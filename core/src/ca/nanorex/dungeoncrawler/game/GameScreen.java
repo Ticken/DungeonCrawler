@@ -109,8 +109,8 @@ public class GameScreen implements Screen {
         // JTest Stuff
         batch.begin();
         RendererComponent player_renderer = player.getComponent(RendererComponent.class);
-        i = (i + 0.1f) % 16;
-        batch.draw(player_renderer.getFrame("main", (int)(i)),0,0);
+        i = (i + 0.2f) % 8;
+        batch.draw(player_renderer.getFrame("left", (int)(i)),0,0);
         batch.end();
     }
 
