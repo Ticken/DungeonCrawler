@@ -1,5 +1,7 @@
-package ca.nanorex.dungeoncrawler.game;
+package ca.nanorex.dungeoncrawler.game.world.objects.components;
 import java.io.Serializable;
+
+import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
 
 public abstract class ObjectComponent implements Serializable {
 

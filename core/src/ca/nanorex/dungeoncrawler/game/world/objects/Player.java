@@ -1,7 +1,10 @@
-package ca.nanorex.dungeoncrawler.game;
+package ca.nanorex.dungeoncrawler.game.world.objects;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import ca.nanorex.dungeoncrawler.game.AnimationInfo;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
 
 public class Player extends GameObject {
     private final String SPRITE_SHEET_PATH = "png/skelly.png"; // in $PROJECT_PATH/

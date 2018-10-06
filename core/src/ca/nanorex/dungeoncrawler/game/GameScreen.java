@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ca.nanorex.dungeoncrawler.DungeonCrawler;
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
+import ca.nanorex.dungeoncrawler.game.world.objects.Player;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
 
 /**
  * The main game screen class. Active when the gameplay is live
@@ -110,7 +111,7 @@ public class GameScreen implements Screen {
         batch.begin();
         RendererComponent player_renderer = player.getComponent(RendererComponent.class);
         i = (i + 0.2f) % 8;
-        batch.draw(player_renderer.getFrame("still_up", (int)(i)),0,0);
+        //batch.draw(player_renderer.getFrame("still_up", (int)(i)),0,0);
         batch.end();
     }
 

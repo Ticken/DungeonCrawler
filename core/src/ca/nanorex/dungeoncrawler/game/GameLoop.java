@@ -1,5 +1,7 @@
 package ca.nanorex.dungeoncrawler.game;
 
+import ca.nanorex.dungeoncrawler.game.world.objects.components.ObjectComponent;
+
 public class GameLoop {
 
 
