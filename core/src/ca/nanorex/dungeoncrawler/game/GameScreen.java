@@ -55,40 +55,44 @@ public class GameScreen implements Screen {
 
     private void testRender(){
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            test1.setVelocity(new Vector2(0 ,1));
+            test1.setVelocityY(200);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            test1.setVelocity(new Vector2(0 ,-1));
+            test1.setVelocityY(-200);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            test1.setVelocity(new Vector2(-1 ,0));
+            test1.setVelocityX(-200);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            test1.setVelocity(new Vector2(1 ,0));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            test2.setVelocity(new Vector2(0 ,1));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            test2.setVelocity(new Vector2(0 ,-1));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            test2.setVelocity(new Vector2(-1 ,0));
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            test2.setVelocity(new Vector2(1 ,0));
+            test1.setVelocityX(200);
         }
 
-        if(rectCollision.isColliding(test1.getRect(), test2.getRect())) {
+        /*
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            test2.setVelocityY(1);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            test2.setVelocityY(-1);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            test2.setVelocityX(-1);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            test2.setVelocityX(1);
+        }
+        */
+
+        test1.render();
+        test2.render();
+
+        if(rectCollision.hasCollided(test1.getRect(), test2.getRect(), test1.getVel())) {
             test1.setIsHit(true);
             test2.setIsHit(true);
+            System.out.println("-------- Colliding!! ----------");
         } else {
             test1.setIsHit(false);
             test2.setIsHit(false);
         }
-
-        test1.render();
-        test2.render();
     }
 
     @Override

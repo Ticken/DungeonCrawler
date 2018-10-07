@@ -38,13 +38,23 @@ public class TestRectangle {
         rect.setSize(w, h);
     }
 
-     public void setVelocity(Vector2 vel) {
+    public void setVelocity(Vector2 vel) {
         this.vel.set(vel);
      }
 
-     public void setIsHit(boolean isHit) {
+    public void setVelocityX(float x) {
+        this.vel.set(x, vel.y);
+    }
+
+    public void setVelocityY(float y) {
+        this.vel.set(vel.x, y);
+    }
+
+    public void setIsHit(boolean isHit) {
         this.isHit = isHit;
      }
 
-     public Rectangle getRect() { return rect;}
+    public Rectangle getRect() { return rect; }
+
+    public Vector2 getVel() { return vel; }
 }
