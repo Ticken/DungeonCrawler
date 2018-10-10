@@ -3,7 +3,6 @@ package ca.nanorex.dungeoncrawler.game.world.objects.components;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonValue;
-import com.sun.corba.se.impl.orb.ParserTable;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;

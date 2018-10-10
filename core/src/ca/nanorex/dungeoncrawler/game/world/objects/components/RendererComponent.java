@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.nanorex.dungeoncrawler.game.AnimationInfo;
 import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
 
 public class RendererComponent extends ObjectComponent {

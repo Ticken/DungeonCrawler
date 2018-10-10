@@ -3,7 +3,6 @@ package ca.nanorex.dungeoncrawler.game.world.objects;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.nanorex.dungeoncrawler.game.AnimationInfo;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
 
 public class Player extends GameObject {
