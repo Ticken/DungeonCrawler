@@ -111,7 +111,7 @@ public class GameScreen implements Screen {
         batch.begin();
         RendererComponent player_renderer = player.getComponent(RendererComponent.class);
         i = (i + 0.2f) % 8;
-        //batch.draw(player_renderer.getFrame("still_up", (int)(i)),0,0);
+        batch.draw(player_renderer.getFrame("still_up", (int)(i)),0,0);
         batch.end();
     }
 

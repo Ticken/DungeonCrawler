@@ -36,10 +36,8 @@ public class RendererComponent extends ObjectComponent {
             animations.put(name, temp2);
         }
     }
-
-
-
-    TextureRegion getFrame(String name, int currentAnimationTick) {
+    
+    public TextureRegion getFrame(String name, int currentAnimationTick) {
         return animations.get(name).getKeyFrame(currentAnimationTick);
     }
 

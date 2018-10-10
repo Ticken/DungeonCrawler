@@ -1,0 +1,30 @@
+{
+  "name": "skelly",
+  "sprite_sheet_path": "png/skelly.png",
+  "tile_width": 64,
+  "tile_height": 64,
+  "directions": 4,
+  "layers": [
+    {
+	  "name": "body"
+      "default_animation": "stand",
+      "default_animation_speed": 0,
+      "animations": [
+        {
+		  "name": "stand",
+		  "priority": 0,
+		  "base_speed": 60,
+          "start": 0,
+          "length": 1
+        },
+        {
+		  "name": "walk"
+		  "priority": 0,
+		  "base_speed": 60,
+          "start": 1,
+          "length": 8
+        }
+      ]
+    }
+  ]
+}
