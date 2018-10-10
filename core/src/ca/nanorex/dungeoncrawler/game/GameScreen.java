@@ -110,8 +110,13 @@ public class GameScreen implements Screen {
         // JTest Stuff
         batch.begin();
         RendererComponent player_renderer = player.getComponent(RendererComponent.class);
-        i = (i + 0.2f) % 8;
-        batch.draw(player_renderer.getFrame("still_up", (int)(i)),0,0);
+        float spf = 1.0f / 60;
+        i += 0.2f * spf;
+        if (i >= 8 * spf)
+            i = 0;
+
+        // you pass it the time since the animation has started
+        batch.draw(player_renderer.getFrame("body", "walk", i), 0, 0);
         batch.end();
     }
 
