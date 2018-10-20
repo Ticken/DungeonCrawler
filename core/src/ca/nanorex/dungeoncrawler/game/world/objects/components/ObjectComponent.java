@@ -17,12 +17,12 @@ public abstract class ObjectComponent implements Serializable {
         order = new Class<?>[] {
             ControllerComponent.class,
             MovementComponent.class,
-            ColliderComponent.class,
-            CollidedComponent.class,
-            AttackComponent.class,
-            VulnerabilityComponent.class,
-            HealthComponent.class
-            //RendererComponent.class,
+            //ColliderComponent.class,
+            //CollidedComponent.class,
+            //AttackComponent.class,
+            //VulnerabilityComponent.class,
+            //HealthComponent.class,
+            RendererComponent.class,
             //SoundComponent.class
         };
     }

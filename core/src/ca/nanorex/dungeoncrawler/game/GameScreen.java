@@ -4,8 +4,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+// JTest Stuff
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
+import ca.nanorex.dungeoncrawler.game.world.objects.Player;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
+import ca.nanorex.dungeoncrawler.input.InputManager;
 
 /**
  * The main game screen class. Active when the gameplay is live
@@ -15,7 +22,7 @@ public class GameScreen implements Screen {
     private Game game;
 
     // Game Things
-    private GameCamera camera;
+    //private GameCamera camera;
     private GameWorld world;
 
     private static final int TICK_RATE = 30;
@@ -26,6 +33,12 @@ public class GameScreen implements Screen {
     private float tickAccumulator, frameAccumulator;
     private float tickRate, frameRate;
 
+    // JTest Stuff
+    SpriteBatch batch;
+    OrthographicCamera camera;
+    Player player;
+    float i;
+
     /**
      * Default constructor for GameScreen
      *
@@ -35,11 +48,21 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Create Game Things
-        camera = new GameCamera(this, 0, 0);
+        //camera = new GameCamera(this, 0, 0);
         world = new GameWorld(this);
 
         tickAccumulator = 0;
         frameAccumulator = 0;
+
+
+        // JTest stuff
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        //tex = new Texture(Gdx.files.internal("data/hello.png"));
+        //reg = new TextureRegion(tex, 50, 0, 100, 100);
+        player = new Player();
+        i = 0;
+        Gdx.input.setInputProcessor(new InputManager(player));
     }
 
     @Override
@@ -90,9 +113,23 @@ public class GameScreen implements Screen {
             frameAccumulator %= MAX_FPS_PERIOD;
         }
 
+
         //Temporary code
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(1, (float)(165/255.0), 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // JTest Stuff
+        player.getComponent(ControllerComponent.class).update();
+        batch.begin();
+        RendererComponent player_renderer = player.getComponent(RendererComponent.class);
+        float spf = 1.0f / 60;
+        i += 0.2f * spf;
+        if (i >= 8 * spf)
+            i = 0;
+
+        // you pass it the time since the animation has started
+        batch.draw(player_renderer.getFrame("body", "walk", i), 0, 0);
+        batch.end();
     }
 
     @Override
