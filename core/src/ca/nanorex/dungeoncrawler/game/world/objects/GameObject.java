@@ -19,4 +19,9 @@ public class GameObject implements Serializable {
     public <T> T getComponent(Class<T> type) {
         return (T)(components.get(type));
     }
+
+    public void update() {
+        for (Class component: components.keySet())
+            components.get(component).update();
+    }
 }

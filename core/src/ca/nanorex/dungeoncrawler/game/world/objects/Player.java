@@ -1,8 +1,6 @@
 package ca.nanorex.dungeoncrawler.game.world.objects;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerComponent;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
 
 public class Player extends GameObject {
@@ -10,6 +8,8 @@ public class Player extends GameObject {
 
     public Player() {
         super();
+        components.put(ControllerComponent.class, new ControllerComponent(this,
+                ControllerComponent.CONTROL_TYPE.PLAYER));
         components.put(RendererComponent.class,
                 new RendererComponent(this, JSON_PATH));
     }

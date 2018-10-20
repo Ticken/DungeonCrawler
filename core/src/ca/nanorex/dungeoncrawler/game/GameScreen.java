@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
 import ca.nanorex.dungeoncrawler.game.world.objects.Player;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
+import ca.nanorex.dungeoncrawler.input.InputManager;
 
 /**
  * The main game screen class. Active when the gameplay is live
@@ -52,6 +53,7 @@ public class GameScreen implements Screen {
         //reg = new TextureRegion(tex, 50, 0, 100, 100);
         player = new Player();
         i = 0;
+        Gdx.input.setInputProcessor(new InputManager(player));
     }
 
     @Override
@@ -108,6 +110,8 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // JTest Stuff
+        player.update();
+
         batch.begin();
         RendererComponent player_renderer = player.getComponent(RendererComponent.class);
         float spf = 1.0f / 60;

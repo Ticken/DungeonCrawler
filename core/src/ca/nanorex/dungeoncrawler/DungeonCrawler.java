@@ -1,8 +1,13 @@
 package ca.nanorex.dungeoncrawler;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import ca.nanorex.dungeoncrawler.game.GameScreen;
+import ca.nanorex.dungeoncrawler.input.InputManager;
 
 public class DungeonCrawler extends Game {
 
@@ -26,7 +31,7 @@ public class DungeonCrawler extends Game {
 
         // Sets the starting screen
         changeScreen(0);
-	}
+    }
 
 	@Override
 	public void render () {
@@ -46,7 +51,8 @@ public class DungeonCrawler extends Game {
                 break;
             // Add more cases as screens get added
             default:
-                System.out.println("ERROR: Attempt to switch screens failed: Unknown screenNumber "+screenNumber);
+                System.out.println("ERROR: Attempt to switch screens failed: " +
+                        "Unknown screenNumber "+screenNumber);
                 break;
         }
     }
