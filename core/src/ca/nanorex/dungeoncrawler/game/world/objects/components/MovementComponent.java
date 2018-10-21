@@ -4,23 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 
 import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
 
-public abstract class MovementComponent extends ObjectComponent {
 
-    protected Vector2 vel;
-    //speed stat
+public class MovementComponent extends ObjectComponent {
+    private Vector2 direction;
 
     public MovementComponent(GameObject object) {
         super(object);
-
-        vel = new Vector2();
+        direction = new Vector2();
     }
 
     @Override
     public void update() {
-        object.getPos().add(vel);
-    }
 
-    public Vector2 getVel() {
-        return vel;
     }
 }

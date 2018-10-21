@@ -3,15 +3,16 @@ package ca.nanorex.dungeoncrawler.game.world.objects;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
+
 import ca.nanorex.dungeoncrawler.game.world.objects.components.ObjectComponent;
 
 public class GameObject implements Serializable {
-
     private GameWorld world;
 
     private String type;
@@ -19,11 +20,12 @@ public class GameObject implements Serializable {
     private Vector2 pos;
     //needs rotation??
 
-    private Map<Class<? super ObjectComponent>, ObjectComponent> components;
+    private Map<Class<? extends ObjectComponent>, ObjectComponent> components;
 
     public GameObject() {
         type = new String();
         tags = new HashSet<String>();
+        components = new HashMap();
         pos = new Vector2();
     }
 
@@ -65,7 +67,13 @@ public class GameObject implements Serializable {
         return (T)components.get(type);
     }
 
-    public void setComponent(Class<? super ObjectComponent> type, ObjectComponent component) {
+    public void setComponent(Class<? extends ObjectComponent> type, ObjectComponent component) {
         components.put(type, component);
     }
+
+    // TODO @Jordan Slater Move this to "outside layer"
+    /*public void update() {
+        for (Class component: components.keySet())
+            components.get(component).update();
+    }*/
 }
