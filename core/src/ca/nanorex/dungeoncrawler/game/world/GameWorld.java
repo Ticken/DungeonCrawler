@@ -1,12 +1,17 @@
 package ca.nanorex.dungeoncrawler.game.world;
 
-import ca.nanorex.dungeoncrawler.game.GameScreen;
+import com.badlogic.gdx.Screen;
 
 public class GameWorld {
 
-    GameScreen gameScreen;
+    Screen screen;
 
-    public GameWorld(GameScreen _gameScreen){
-        gameScreen = _gameScreen;
+    /**
+     * Default constructor for GameScreen
+     *
+     * @param screen The Screen object that uses this GameWorld
+     */
+    public GameWorld(Screen screen) {
+        this.screen = screen;
     }
 }
