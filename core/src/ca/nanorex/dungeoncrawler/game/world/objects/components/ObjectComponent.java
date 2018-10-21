@@ -21,8 +21,8 @@ public abstract class ObjectComponent implements Serializable {
             CollidedComponent.class,
             AttackComponent.class,
             VulnerabilityComponent.class,
-            HealthComponent.class
-            //RendererComponent.class,
+            HealthComponent.class,
+            RenderComponent.class,
             //SoundComponent.class
         };
     }

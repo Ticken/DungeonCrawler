@@ -18,10 +18,10 @@ public class GameScreen implements Screen {
     private GameCamera camera;
     private GameWorld world;
 
-    private static final int TICK_RATE = 30;
-    private static final float TICK_PERIOD = 1 / TICK_RATE;
-    private static final int MAX_FPS = 120; //Maybe change this to max framerate of device?
-    private static final float MAX_FPS_PERIOD = 1 / MAX_FPS;
+    public static final int TICK_RATE = 30;
+    public static final float TICK_PERIOD = 1 / TICK_RATE;
+    public static final int MAX_FPS = 120; //Maybe change this to max framerate of device?
+    public static final float MAX_FPS_PERIOD = 1 / MAX_FPS;
 
     private float tickAccumulator, frameAccumulator;
     private float tickRate, frameRate;

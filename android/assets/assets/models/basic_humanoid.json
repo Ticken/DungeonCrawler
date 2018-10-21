@@ -1,0 +1,72 @@
+{
+	"name": "basic_humanoid",
+	"tilewidth": 32,
+	"tileheight": 32,
+    "directions": 8,
+    "offset_x": 0,
+    "offset_y": 0,
+    "shadow_size": 16,
+    "shadow_offset": 0,
+    "default_animation": "stand",
+    "layers": [
+        {
+            "name": "legs",
+            "texture": "main",
+            "texture_index": 0
+        },
+        {
+            "name": "torso",
+            "texture": "main",
+            "texture_index": 1
+        },
+        {
+            "name": "weapon",
+            "texture": "weapon",
+            "texture_index": 0
+        },
+        {
+            "name": "head",
+            "texture": "main",
+            "texture_index": 2
+        }
+    ],
+    "animations:": [
+        {
+            "name": "stand",
+            "priority": 0,
+            "fps": 0,
+            "mode": "normal",
+            "texture_start": 0,
+            "length": 1,
+            "layers": [
+                "legs",
+                "torso",
+                "head"
+            ]
+        },
+        {
+            "name": "walk",
+            "priority": 0,
+            "fps": 10,
+            "mode": "loop",
+            "texture_start": 1,
+            "length": 3,
+            "layers": [
+                "legs",
+                "torso",
+                "head"
+            ]
+        },
+        {
+            "name": "attack",
+            "priority": 1,
+            "fps": 10,
+            "mode": "normal",
+            "texture_start": 4,
+            "length": 4,
+            "layers": [
+                "torso"
+            ]
+        }
+    ]
+}
