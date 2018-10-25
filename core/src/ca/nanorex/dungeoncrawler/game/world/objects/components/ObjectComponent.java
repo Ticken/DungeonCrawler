@@ -1,7 +1,9 @@
 package ca.nanorex.dungeoncrawler.game.world.objects.components;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -11,20 +13,19 @@ import ca.nanorex.dungeoncrawler.game.world.objects.TickTimer;
 
 public abstract class ObjectComponent implements Serializable {
 
-    public static final Class<? extends ObjectComponent>[] order;
+    public static final List<Class<? extends ObjectComponent>> order;
 
     static {
-        order = (Class<? extends ObjectComponent>[]) new Class<?>[]{
-            ControllerComponent.class,
-            MovementComponent.class,
-            //ColliderComponent.class,
-            //CollidedComponent.class,
-            //AttackComponent.class,
-            //VulnerabilityComponent.class,
-            //HealthComponent.class,
-            RenderComponent.class,
-            //SoundComponent.class
-        };
+        order = new ArrayList<Class<? extends ObjectComponent>>();
+        order.add(ControllerComponent.class);
+        order.add(MovementComponent.class);
+        order.add(ColliderComponent.class);
+        order.add(CollidedComponent.class);
+        order.add(AttackComponent.class);
+        order.add(VulnerabilityComponent.class);
+        order.add(HealthComponent.class);
+        order.add(RenderComponent.class);
+        //order.add(SoundComponent.class);
     }
 
     protected GameObject object;

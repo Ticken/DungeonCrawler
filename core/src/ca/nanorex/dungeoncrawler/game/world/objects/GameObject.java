@@ -64,7 +64,7 @@ public class GameObject implements Serializable {
     }
 
     public <T extends ObjectComponent> T getComponent(Class<T> type) {
-        return (T)components.get(type);
+        return type.cast(components.get(type));
     }
 
     public void setComponent(Class<? extends ObjectComponent> type, ObjectComponent component) {
