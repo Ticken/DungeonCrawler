@@ -11,17 +11,17 @@ import ca.nanorex.dungeoncrawler.game.world.objects.TickTimer;
 
 public abstract class ObjectComponent implements Serializable {
 
-    public static final Class<?>[] order;
+    public static final Class<? extends ObjectComponent>[] order;
 
     static {
-        order = new Class<?>[] {
+        order = (Class<? extends ObjectComponent>[]) new Class<?>[]{
             ControllerComponent.class,
             MovementComponent.class,
-            ColliderComponent.class,
-            CollidedComponent.class,
-            AttackComponent.class,
-            VulnerabilityComponent.class,
-            HealthComponent.class,
+            //ColliderComponent.class,
+            //CollidedComponent.class,
+            //AttackComponent.class,
+            //VulnerabilityComponent.class,
+            //HealthComponent.class,
             RenderComponent.class,
             //SoundComponent.class
         };

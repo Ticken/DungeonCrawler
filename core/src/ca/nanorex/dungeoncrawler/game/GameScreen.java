@@ -7,10 +7,18 @@ import com.badlogic.gdx.graphics.GL20;
 // JTest Stuff
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
+import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
 import ca.nanorex.dungeoncrawler.game.world.objects.Player;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.MovementComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.ObjectComponent;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
 import ca.nanorex.dungeoncrawler.input.InputManager;
 
@@ -37,7 +45,9 @@ public class GameScreen implements Screen {
     SpriteBatch batch;
     OrthographicCamera camera;
     Player player;
+    List<GameObject> objects;
     float i;
+    int animationDirection;
 
     /**
      * Default constructor for GameScreen
@@ -59,8 +69,10 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         //tex = new Texture(Gdx.files.internal("data/hello.png"));
-        //reg = new TextureRegion(tex, 50, 0, 100, 100);
         player = new Player();
+        objects = new LinkedList<GameObject>();
+        objects.add(player);
+
         i = 0;
         Gdx.input.setInputProcessor(new InputManager(player));
     }
@@ -119,16 +131,52 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // JTest Stuff
-        player.getComponent(ControllerComponent.class).update();
+
+        for (Class<? extends ObjectComponent> type: ObjectComponent.order) {
+            for (GameObject object: objects) {
+                if (object.hasComponent(type)) {
+                    object.getComponent(type).update();
+                }
+            }
+            /*for (GameObject object: objects) {
+                if (object.hasComponent(type))
+                    object.getComponent(type).processEvents();
+            }*/
+        }
+
         batch.begin();
-        RendererComponent player_renderer = player.getComponent(RendererComponent.class);
+        RendererComponent playerRenderer = player.getComponent(RendererComponent.class);
+        MovementComponent movementComponent = player.getComponent(MovementComponent.class);
         float spf = 1.0f / 60;
-        i += 0.2f * spf;
+        i += 0.3f * spf;
         if (i >= 8 * spf)
             i = 0;
 
+        Vector2 position = movementComponent.getPosition();
+        Vector2 direction = movementComponent.getDirection();
+
+        String animation = "walk";
+        if (direction.x == 0 && direction.y == 0)
+            animation = "stand";
+        else {
+            float angle = direction.angle();
+            System.out.println("angle: " + angle);
+            if (angle == 90)
+                animationDirection = 0;
+            else if(angle == 270)
+                animationDirection = 2;
+            else if(angle > 90 && angle < 270)
+                animationDirection = 1;
+            else
+                animationDirection = 3;
+        }
+
         // you pass it the time since the animation has started
-        batch.draw(player_renderer.getFrame("body", "walk", i), 0, 0);
+        TextureRegion playerTextureRegion = playerRenderer.getFrame(
+                "body", animation, i, animationDirection);
+
+        batch.draw(playerTextureRegion, position.x,
+                position.y);
         batch.end();
     }
 

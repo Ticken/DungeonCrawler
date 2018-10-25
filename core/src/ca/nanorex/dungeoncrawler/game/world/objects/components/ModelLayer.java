@@ -43,7 +43,7 @@ public class ModelLayer {
     }
 
     public TextureRegion getTextureRegion(String animation, float animationTime, Animation.PlayMode
-            playMode) {
-        return animations.get(animation)[1].getKeyFrame(animationTime);
+            playMode, int direction) {
+        return animations.get(animation)[direction].getKeyFrame(animationTime);
     }
 }

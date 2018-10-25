@@ -22,9 +22,10 @@ public class RendererComponent extends ObjectComponent {
         model = new Model(json_path);
     }
 
-    public TextureRegion getFrame(String layer_name, String name, float currentAnimationTime) {
+    public TextureRegion getFrame(String layer_name, String name, float currentAnimationTime, int
+            direction) {
         return model.getLayer(layer_name).getTextureRegion(name, currentAnimationTime, Animation
-                .PlayMode.LOOP);
+                .PlayMode.LOOP, direction);
     }
 
     @Override
