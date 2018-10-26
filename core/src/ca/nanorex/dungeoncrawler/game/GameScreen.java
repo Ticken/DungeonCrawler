@@ -58,12 +58,14 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Create Game Things
+        //gameCamera = new GameCamera(this, 0, 0);
+        //gameWorld = new GameWorld(this);
+
         //camera = new GameCamera(this, 0, 0);
         world = new GameWorld(this);
 
         tickAccumulator = 0;
         frameAccumulator = 0;
-
 
         // JTest stuff
         batch = new SpriteBatch();
