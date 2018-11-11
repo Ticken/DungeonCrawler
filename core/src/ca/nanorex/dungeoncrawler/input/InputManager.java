@@ -151,6 +151,6 @@ public class InputManager implements InputProcessor {
     private void updateDirection() {
         int x = (moveKeys[2]? -1 : 0) + (moveKeys[3]? 1 : 0);
         int y = (moveKeys[0]? 1 : 0) + (moveKeys[1]? -1 : 0);
-        player.getComponent(ControllerComponent.class).setDirection(new Vector2(x,y).nor());
+        //player.getComponent(ControllerComponent.class).setDirection(new Vector2(x,y).nor());
     }
 }

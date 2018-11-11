@@ -14,33 +14,13 @@ public class ControllerComponent extends ObjectComponent {
     private Vector2 direction;
     public enum CONTROL_TYPE {PLAYER, ENT}
     private CONTROL_TYPE controlType;
-    private EventPublisher<VelocityEvent> velocityEventPublisher;
 
-    public ControllerComponent(GameObject object, CONTROL_TYPE controlType) {
-        super(object);
+    public ControllerComponent(CONTROL_TYPE controlType) {
         direction = new Vector2();
         this.controlType = controlType;
-        velocityEventPublisher = new EventPublisher(getVelocityListeners(object));
-    }
-
-    @Override
-    public void update() {
-        //System.out.println("(" + direction.x + ", " + direction.y + ")");
-        velocityEventPublisher.publish(new VelocityEvent(direction));
     }
 
     public void setDirection(Vector2 direction) {
         this.direction = direction;
-    }
-
-    //public boolean isPlayer() { return this.controlType == CONTROL_TYPE.PLAYER; }
-
-    public List<EventListener<VelocityEvent>> getVelocityListeners(GameObject object) {
-        List<EventListener<VelocityEvent>> listeners = new ArrayList();
-        // TODO: this might be able to be generalized
-        if (object.hasComponent(MovementComponent.class)) {
-            listeners.add(object.getComponent(MovementComponent.class).getVelocityEventListener());
-        }
-        return listeners;
     }
 }

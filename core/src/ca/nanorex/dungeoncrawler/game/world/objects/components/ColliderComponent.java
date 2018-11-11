@@ -10,11 +10,7 @@ public abstract class ColliderComponent extends ObjectComponent {
     protected boolean solid;
 
     public ColliderComponent(GameObject object) {
-        super(object);
-    }
 
-    @Override
-    public void update() {
     }
 
     public Rectangle getRect() {

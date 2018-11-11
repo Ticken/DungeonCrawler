@@ -1,3 +1,4 @@
+/*
 package ca.nanorex.dungeoncrawler.game.render;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +28,8 @@ public class ObjectRenderer extends Renderer<GameObject> {
                     tr.texture = getTexture(string)
                     draw tr, rc.getpos
              */
+            /*
         }
     }
 }
+*/

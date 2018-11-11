@@ -20,12 +20,9 @@ public class GameObject implements Serializable {
     private Vector2 pos;
     //needs rotation??
 
-    private Map<Class<? extends ObjectComponent>, ObjectComponent> components;
-
     public GameObject() {
         type = new String();
         tags = new HashSet<String>();
-        components = new HashMap();
         pos = new Vector2();
     }
 
@@ -58,22 +55,4 @@ public class GameObject implements Serializable {
     public Vector2 getPos() {
         return pos;
     }
-
-    public <T extends ObjectComponent> boolean hasComponent(Class<T> type) {
-        return components.get(type) != null;
-    }
-
-    public <T extends ObjectComponent> T getComponent(Class<T> type) {
-        return type.cast(components.get(type));
-    }
-
-    public void setComponent(Class<? extends ObjectComponent> type, ObjectComponent component) {
-        components.put(type, component);
-    }
-
-    // TODO @Jordan Slater Move this to "outside layer"
-    /*public void update() {
-        for (Class component: components.keySet())
-            components.get(component).update();
-    }*/
 }

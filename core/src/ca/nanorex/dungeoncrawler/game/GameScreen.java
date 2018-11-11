@@ -133,20 +133,18 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // JTest Stuff
-
+/*
         for (Class<? extends ObjectComponent> type: ObjectComponent.order) {
             for (GameObject object: objects) {
                 if (object.hasComponent(type)) {
                     object.getComponent(type).update();
                 }
             }
-            /*for (GameObject object: objects) {
-                if (object.hasComponent(type))
-                    object.getComponent(type).processEvents();
-            }*/
         }
+*/
 
         batch.begin();
+        /*
         RendererComponent playerRenderer = player.getComponent(RendererComponent.class);
         MovementComponent movementComponent = player.getComponent(MovementComponent.class);
         float spf = 1.0f / 60;
@@ -179,6 +177,7 @@ public class GameScreen implements Screen {
 
         batch.draw(playerTextureRegion, position.x,
                 position.y);
+                */
         batch.end();
     }
 

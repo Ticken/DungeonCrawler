@@ -9,10 +9,12 @@ public class Player extends GameObject {
 
     public Player() {
         super();
+        /*
         setComponent(RendererComponent.class,
                 new RendererComponent(this, JSON_PATH));
         setComponent(MovementComponent.class, new MovementComponent(this));
         setComponent(ControllerComponent.class, new ControllerComponent(this,
                 ControllerComponent.CONTROL_TYPE.PLAYER));
+        */
     }
 }
