@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-
 import com.badlogic.gdx.Input.Keys;
 
 import java.util.HashMap;
@@ -22,21 +21,25 @@ import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerCompone
 public class InputManager implements InputProcessor {
     private final String JSON_FILE_PATH = "json/controls.json";
     // control names:
-    private final String MOVE_UP = "moveUp";
-    private final String MOVE_DOWN = "moveDown";
-    private final String MOVE_LEFT = "moveLeft";
-    private final String MOVE_RIGHT = "moveRight";
+    private static final String MOVE_UP = "moveUp";
+    private static final String MOVE_DOWN = "moveDown";
+    private static final String MOVE_LEFT = "moveLeft";
+    private static final String MOVE_RIGHT = "moveRight";
 
     private Player player;
     private Map<Integer, String> controls; // key name to string action
-    private final String[] KEY_LIST = getKeyList();
+    private static final String[] KEY_LIST = getKeyList();
     private boolean[] moveKeys; //up down left right
+
+    // gamepad
+
 
     public InputManager(Player player) {
         this.player = player;
 
         JsonReader jsonReader = new JsonReader();
         JsonValue jsonFile = jsonReader.parse(Gdx.files.internal(JSON_FILE_PATH));
+        JsonValue jsonKeyboard = jsonFile.get("keyboard");
 
         controls = new HashMap();
         moveKeys = new boolean[4];
@@ -44,7 +47,7 @@ public class InputManager implements InputProcessor {
             moveKeys[i] = false;
 
         for (String key: KEY_LIST)
-            controls.put(Keys.valueOf(jsonFile.getString(key)), key);
+            controls.put(Keys.valueOf(jsonKeyboard.getString(key)), key);
     }
 
     @Override
@@ -116,7 +119,7 @@ public class InputManager implements InputProcessor {
         return false;
     }
 
-    final private String[] getKeyList() {
+    static final private String[] getKeyList() {
         return new String[]{
             MOVE_UP,
             MOVE_DOWN,

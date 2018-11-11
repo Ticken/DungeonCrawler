@@ -1,6 +1,8 @@
 {
-  "moveUp": "W"
-  "moveDown": "S"
-  "moveLeft": "A"
-  "moveRight": "D"
+  "keyboard": {
+    "moveUp": "W"
+    "moveDown": "S"
+    "moveLeft": "A"
+    "moveRight": "D"
+  }
 }
