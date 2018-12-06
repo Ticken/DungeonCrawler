@@ -1,13 +1,8 @@
 package ca.nanorex.dungeoncrawler;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import ca.nanorex.dungeoncrawler.game.GameScreen;
-import ca.nanorex.dungeoncrawler.input.InputManager;
 
 public class DungeonCrawler extends Game {
 

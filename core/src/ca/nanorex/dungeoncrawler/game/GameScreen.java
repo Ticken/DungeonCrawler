@@ -4,23 +4,19 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-// JTest Stuff
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import ca.nanorex.dungeoncrawler.game.world.GameWorld;
 import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
-import ca.nanorex.dungeoncrawler.game.world.objects.Player;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerComponent;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.MovementComponent;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.ObjectComponent;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.RendererComponent;
-import ca.nanorex.dungeoncrawler.input.InputManager;
+import ca.nanorex.dungeoncrawler.game.world.objects.systems.ObjectList;
+import ca.nanorex.dungeoncrawler.game.world.objects.systems.ObjectSystem;
+
+// JTest Stuff
 
 /**
  * The main game screen class. Active when the gameplay is live
@@ -44,9 +40,8 @@ public class GameScreen implements Screen {
     // JTest Stuff
     SpriteBatch batch;
     OrthographicCamera camera;
-    Player player;
-    List<GameObject> objects;
-    float i;
+    ObjectList objectList;
+    ShapeRenderer shapeRenderer;
     int animationDirection;
 
     /**
@@ -69,14 +64,14 @@ public class GameScreen implements Screen {
 
         // JTest stuff
         batch = new SpriteBatch();
-        camera = new OrthographicCamera();
+        camera = new OrthographicCamera(3.0f, 3.0f);
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
         //tex = new Texture(Gdx.files.internal("data/hello.png"));
-        player = new Player();
-        objects = new LinkedList<GameObject>();
-        objects.add(player);
 
-        i = 0;
-        Gdx.input.setInputProcessor(new InputManager(player));
+        objectList = new ObjectList();
+
+        Gdx.input.setInputProcessor(objectList.getInputSystem());
     }
 
     @Override
@@ -133,7 +128,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // JTest Stuff
-/*
+        /*
         for (Class<? extends ObjectComponent> type: ObjectComponent.order) {
             for (GameObject object: objects) {
                 if (object.hasComponent(type)) {
@@ -141,8 +136,10 @@ public class GameScreen implements Screen {
                 }
             }
         }
-*/
-
+        */
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        objectList.update(shapeRenderer);
+        shapeRenderer.end();
         batch.begin();
         /*
         RendererComponent playerRenderer = player.getComponent(RendererComponent.class);
@@ -183,7 +180,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        
     }
 
     @Override

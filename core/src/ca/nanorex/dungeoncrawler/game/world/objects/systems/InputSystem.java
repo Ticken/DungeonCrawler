@@ -1,4 +1,4 @@
-package ca.nanorex.dungeoncrawler.input;
+package ca.nanorex.dungeoncrawler.game.world.objects.systems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -13,12 +13,10 @@ import com.badlogic.gdx.Input.Keys;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.naming.ldap.Control;
+import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.controllers.PlayerControllerComponent;
 
-import ca.nanorex.dungeoncrawler.game.world.objects.Player;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.ControllerComponent;
-
-public class InputManager implements InputProcessor {
+public class InputSystem extends ObjectSystem implements InputProcessor {
     private final String JSON_FILE_PATH = "json/controls.json";
     // control names:
     private static final String MOVE_UP = "moveUp";
@@ -26,17 +24,15 @@ public class InputManager implements InputProcessor {
     private static final String MOVE_LEFT = "moveLeft";
     private static final String MOVE_RIGHT = "moveRight";
 
-    private Player player;
     private Map<Integer, String> controls; // key name to string action
     private static final String[] KEY_LIST = getKeyList();
     private boolean[] moveKeys; //up down left right
+    private Vector2 direction;
 
     // gamepad
+    // TODO @Jordan implement game controllers
 
-
-    public InputManager(Player player) {
-        this.player = player;
-
+    public InputSystem() {
         JsonReader jsonReader = new JsonReader();
         JsonValue jsonFile = jsonReader.parse(Gdx.files.internal(JSON_FILE_PATH));
         JsonValue jsonKeyboard = jsonFile.get("keyboard");
@@ -48,6 +44,18 @@ public class InputManager implements InputProcessor {
 
         for (String key: KEY_LIST)
             controls.put(Keys.valueOf(jsonKeyboard.getString(key)), key);
+
+        direction = new Vector2();
+    }
+
+    @Override
+    public void update(ObjectList objectList) {
+        for (GameObject player : objectList.getObjects()) {
+            PlayerControllerComponent playerControllerComponent = player.getComponent
+                    (PlayerControllerComponent.class);
+            if (playerControllerComponent != null)
+                playerControllerComponent.setDirection(direction);
+        }
     }
 
     @Override
@@ -149,8 +157,8 @@ public class InputManager implements InputProcessor {
     }
 
     private void updateDirection() {
-        int x = (moveKeys[2]? -1 : 0) + (moveKeys[3]? 1 : 0);
-        int y = (moveKeys[0]? 1 : 0) + (moveKeys[1]? -1 : 0);
-        //player.getComponent(ControllerComponent.class).setDirection(new Vector2(x,y).nor());
+        int x = (moveKeys[2] ? -1 : 0) + (moveKeys[3] ? 1 : 0);
+        int y = (moveKeys[0] ? 1 : 0) + (moveKeys[1] ? -1 : 0);
+        direction = new Vector2(x,y).nor();
     }
 }
