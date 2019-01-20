@@ -1,17 +1,17 @@
 package ca.nanorex.dungeoncrawler.game.world.objects.components;
 
-import com.badlogic.gdx.math.Vector2;
+        import com.badlogic.gdx.math.Vector2;
 
-public class MovementComponent extends ObjectComponent {
+public class PlayerMovementComponent extends ObjectComponent {
     private Vector2 position, velocity;
     private float damping, traction, maxSpeed;
 
-    public MovementComponent() {
+    public PlayerMovementComponent() {
         position = new Vector2(0,0);
         velocity = new Vector2(0,0);
         damping = 0.01f;
-        traction = 0.001f;
-        maxSpeed = 0.01f;
+        traction = 0.01f;
+        maxSpeed = 0.04f;
     }
 
     public Vector2 getPosition() {

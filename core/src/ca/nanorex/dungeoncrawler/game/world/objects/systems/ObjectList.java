@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.nanorex.dungeoncrawler.game.world.objects.EnemyObject;
 import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
 import ca.nanorex.dungeoncrawler.game.world.objects.PlayerObject;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.MovementComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.PlayerMovementComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.controllers.EnemyControllerComponent;
 
 public class ObjectList {
     private List<GameObject> objects;
@@ -19,8 +21,12 @@ public class ObjectList {
     public ObjectList() {
         // OBJECTS
         objects = new ArrayList();
+        // player
         PlayerObject player = new PlayerObject(1);
         objects.add(player);
+        // adding a basic enemy
+        EnemyObject enemy = new EnemyObject();
+        objects.add(enemy);
         // SYSTEMS
         systems = new ArrayList();
         inputSystem = new InputSystem();
@@ -37,10 +43,12 @@ public class ObjectList {
 
         for (GameObject object : objects)
         {
-            MovementComponent movementComponent = object.getComponent(MovementComponent.class);
-            if (movementComponent != null)
+            PlayerMovementComponent playerMovementComponent = object.getComponent
+                    (PlayerMovementComponent
+                    .class);
+            if (playerMovementComponent != null)
             {
-                Vector2 position = movementComponent.getPosition();
+                Vector2 position = playerMovementComponent.getPosition();
                 //shapeRenderer.circle(position.x,position.y,0.1f,24);
                 shapeRenderer.rect(position.x,position.y,0.1f,0.1f);
             }

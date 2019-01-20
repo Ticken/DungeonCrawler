@@ -3,7 +3,7 @@ package ca.nanorex.dungeoncrawler.game.world.objects.systems;
 import com.badlogic.gdx.math.Vector2;
 
 import ca.nanorex.dungeoncrawler.game.world.objects.GameObject;
-import ca.nanorex.dungeoncrawler.game.world.objects.components.MovementComponent;
+import ca.nanorex.dungeoncrawler.game.world.objects.components.PlayerMovementComponent;
 import ca.nanorex.dungeoncrawler.game.world.objects.components.controllers.PlayerControllerComponent;
 
 public class MovementSystem extends ObjectSystem{
@@ -15,28 +15,31 @@ public class MovementSystem extends ObjectSystem{
             if(playerControllerComponent != null)
             {
                 Vector2 direction  = new Vector2(playerControllerComponent.getDirection());
-                MovementComponent movementComponent = object.getComponent(MovementComponent.class);
-                if(movementComponent != null)
+                PlayerMovementComponent playerMovementComponent = object.getComponent(
+                        PlayerMovementComponent.class);
+                if(playerMovementComponent != null)
                 {
-                    Vector2 position = movementComponent.getPosition();
-                    Vector2 velocity = movementComponent.getVelocity();
+                    Vector2 position = playerMovementComponent.getPosition();
+                    Vector2 velocity = playerMovementComponent.getVelocity();
 //                    if (direction.len() == 0)
 //                        direction = new Vector2(velocity).scl(-1).nor();
-//                    velocity.add(direction.scl(movementComponent.getTraction()));
+//                    velocity.add(direction.scl(playerMovementComponent.getTraction()));
 //                    if (velocity.len() != 0) {
-//                        velocity.sub(new Vector2(velocity).scl(movementComponent.getDamping() *
+//                        velocity.sub(new Vector2(velocity).scl(playerMovementComponent.getDamping() *
 //                                (velocity.len() * 0.0f + 1.0f)));
 //                    }
-                    direction.add(new Vector2(velocity).scl(-1)).nor();
+                    float relativeSpeedFeedback = 0.01f;
+                    direction.add(new Vector2(velocity).scl(-1 * relativeSpeedFeedback
+                            / playerMovementComponent.getMaxSpeed())).nor();
 
-                    velocity.add(direction.scl(movementComponent.getTraction()));
-                    if (velocity.len() > movementComponent.getMaxSpeed())
-                        velocity.scl(movementComponent.getMaxSpeed() / velocity.len());
+                    velocity.add(direction.scl(playerMovementComponent.getTraction()));
+                    if (velocity.len() > playerMovementComponent.getMaxSpeed())
+                        velocity.scl(playerMovementComponent.getMaxSpeed() / velocity.len());
                     if (velocity.len() < 4E-4)
                         velocity.scl(0.0f);
 
                     position.add(velocity);
-                    System.out.println(velocity);
+                    //System.out.println(velocity);
                 }
             }
         }
