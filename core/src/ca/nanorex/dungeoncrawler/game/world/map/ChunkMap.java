@@ -19,15 +19,25 @@ public class ChunkMap {
     public ChunkMap() {
         chunks = new LinkedList<List<Chunk>>();
         origin = new Vector2();
+        index = new Vector2();
+
+        chunks.add(new LinkedList<Chunk>());
+
+        System.out.println("ChunkMap MADE");
     }
 
     // Will add the chunk into the chunks List
     // Will add a row or column as needed
     public void add(Chunk chunk, Vector2 position) {
-        index.equals(position.add(origin));
+        System.out.println("======Adding Chunk========");
+        System.out.println("position: "+position.x+", "+position.y);
+        index.set(position);
+        index.add(origin);
+        System.out.println("index: "+index.x+", "+index.y);
 
         // Check X
-        if(index.x < 0 || index.x > chunks.size()) {
+        if(index.x < 0 || index.x + 1 > chunks.size()) {
+            System.out.println("Changing X");
             // Need to add a vertical column
 
             // Check if row is right or left
@@ -51,15 +61,21 @@ public class ChunkMap {
                         chunks.get(0).add(null);
                     }
                 }
+
+                //Update origin's X
+                origin.x = origin.x - index.x;
+                index.x = 0;
             }
         }
 
         // Check Y
-        if(index.y < 0 || index.y > chunks.get((int)index.x).size()) {
+        //System.out.println(index.y+" < 0 || "+(index.y+1)+" > "+chunks.get((int)index.x).size());
+        if(index.y < 0 || index.y + 1 > chunks.get((int)index.x).size()) {
+            System.out.println("Changing Y");
             // Need to add a horizontal row
 
             // Checks if the row is above or below
-            if(index.y > 0) { // Above
+            if(index.y >= 0) { // Above
                 // Add the entries to each List
                 for(int x = 0; x < chunks.size(); x++) {
                     // Add the needed entries
@@ -78,18 +94,31 @@ public class ChunkMap {
 
                 // Update origin's Y
                 origin.y = origin.y - index.y;
+                index.y = 0;
             }
         }
 
         // Insert the chunk
         chunks.get((int)index.x).remove((int)index.y);
         chunks.get((int)index.x).add((int)index.y, chunk);
+
+        System.out.println("origin: "+origin.x+", "+origin.y);
+        System.out.println("=====Chunk Added=====");
+        System.out.println();
     }
 
     // Returns the Chunk at the given position
     // Offsets position by where the origin is
     public Chunk get(Vector2 position) {
-        index.equals(position.add(origin));
+        System.out.println("=====Get Chunk=======");
+        System.out.println("position: "+position.x+", "+position.y);
+        index.set(position);
+        index.add(origin);
+        System.out.println("index: "+index.x+", "+index.y);
+        System.out.println();
+        if (index.x + 1 > chunks.size() || index.y + 1 > chunks.get((int)index.x).size()) {
+            return null;
+        }
         return chunks.get((int)(index.x)).get((int)(index.y + position.y));
     }
 }

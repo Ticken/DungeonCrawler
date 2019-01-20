@@ -19,7 +19,7 @@ public class ControllerComponent extends ObjectComponent {
 
     @Override
     public void update() {
-        System.out.println("(" + direction.x + ", " + direction.y + ")");
+        //System.out.println("(" + direction.x + ", " + direction.y + ")");
     }
 
     public void setDirection(Vector2 direction) {
