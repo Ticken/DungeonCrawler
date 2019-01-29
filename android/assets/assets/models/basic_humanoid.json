@@ -1,12 +1,9 @@
 {
-	"name": "basic_humanoid",
-	"tilewidth": 32,
-	"tileheight": 32,
+    "name": "basic_humanoid",
     "directions": 8,
-    "offset_x": 0,
-    "offset_y": 0,
+    "y_offset": 0,
+    "shadow_y_offset": 0,
     "shadow_size": 16,
-    "shadow_offset": 0,
     "default_animation": "stand",
     "layers": [
         {
@@ -30,13 +27,13 @@
             "texture_index": 2
         }
     ],
-    "animations:": [
+    "animations": [
         {
             "name": "stand",
             "priority": 0,
             "fps": 0,
-            "mode": "normal",
-            "texture_start": 0,
+            "mode": "loop",
+            "texture_index": 0,
             "length": 1,
             "layers": [
                 "legs",
@@ -48,8 +45,8 @@
             "name": "walk",
             "priority": 0,
             "fps": 10,
-            "mode": "loop",
-            "texture_start": 1,
+            "mode": "loop_pingpong",
+            "texture_index": 1,
             "length": 3,
             "layers": [
                 "legs",
@@ -62,7 +59,7 @@
             "priority": 1,
             "fps": 10,
             "mode": "normal",
-            "texture_start": 4,
+            "texture_index": 4,
             "length": 4,
             "layers": [
                 "torso"

@@ -12,8 +12,8 @@ public class DesktopLauncher {
 		config.title = "Crawler";
 		config.addIcon("icons/icon_desktop_128.png", FileType.Internal);
 		config.addIcon("icons/icon_desktop_32.png", FileType.Internal);
-        config.height = 500;
-        config.width = 500;
+        config.height = 720;
+        config.width = 1280;
 		new LwjglApplication(new DungeonCrawler(), config);
 	}
 }

@@ -1,54 +1,17 @@
 package ca.nanorex.dungeoncrawler;
 
-import com.badlogic.gdx.Game;
-
-import ca.nanorex.dungeoncrawler.game.GameScreen;
+import ca.nanorex.dungeoncrawler.engine.Game;
+import ca.nanorex.dungeoncrawler.engine.screens.GameScreen;
 
 public class DungeonCrawler extends Game {
 
-    // Screens
-    GameScreen screenGame;
-
-    // Other Things
-    AssetLibrary assetLibrary;
-    SoundEngine soundEngine;
-    Settings settings;
-
-	@Override
-	public void create () {
-        // Create Screens
-        screenGame = new GameScreen(this);
-
-        // Create Other Things
-        assetLibrary = new AssetLibrary(this);
-        soundEngine = new SoundEngine(this);
-        settings = new Settings(this);
-
-        // Sets the starting screen
-        changeScreen(0);
+    public DungeonCrawler() {
+        super();
     }
 
-	@Override
-	public void render () {
-	    super.render();
-	}
-	
-	@Override
-	public void dispose () {
-	}
-
-	public void changeScreen (int screenNumber){
-	    switch (screenNumber){
-            case 0:
-                // GameScreen
-                setScreen(screenGame);
-
-                break;
-            // Add more cases as screens get added
-            default:
-                System.out.println("ERROR: Attempt to switch screens failed: " +
-                        "Unknown screenNumber "+screenNumber);
-                break;
-        }
+    @Override
+    public void create() {
+        screens.put("game", new GameScreen(this));
+        setScreen("game");
     }
 }
