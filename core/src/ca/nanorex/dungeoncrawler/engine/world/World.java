@@ -49,11 +49,13 @@ public class World {
         Game.getAssetLibrary().load("basic_humanoid", SpriteModel.class);
         //Game.getAssetManager().load("assets/textures/objects/player.png", SpriteTexture.class);
         Game.getAssetLibrary().load("objects/player", SpriteTexture.class);
+        Game.getAssetLibrary().load("objects/basic_sword", SpriteTexture.class);
         Game.getAssetLibrary().finishLoading();
 
         test = new Sprite("basic_humanoid",
                 new HashMap<String, String>() {{
                     put("main", "objects/player");
+                    put("weapon", "objects/basic_sword");
                 }});
         //todo: should automatically assume directory based on asset type
 
