@@ -2,18 +2,16 @@ package ca.nanorex.dungeoncrawler.engine.world;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashMap;
 
 import ca.nanorex.dungeoncrawler.engine.Game;
+import ca.nanorex.dungeoncrawler.engine.gui.VirtualJoystick;
 import ca.nanorex.dungeoncrawler.engine.render.renderers.SpriteRenderer;
 import ca.nanorex.dungeoncrawler.engine.render.sprite.Sprite;
 import ca.nanorex.dungeoncrawler.engine.render.sprite.SpriteModel;
@@ -43,6 +41,9 @@ public class World {
 
     float js = 2f / 5;
 
+
+    VirtualJoystick joystick;
+
     public World() {
         objects = new ObjectManager();
 
@@ -64,8 +65,8 @@ public class World {
         OrthographicCamera camera = new OrthographicCamera();
         if (Gdx.app.getType() == Application.ApplicationType.Android)
             camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-            else
-        camera.setToOrtho(false);
+        else
+            camera.setToOrtho(false);
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
@@ -78,6 +79,13 @@ public class World {
 
         input = new Vector2();
         vel = new Vector2();
+
+
+        joystick = new VirtualJoystick(new Vector2(160.0f,160.0f));
+        Gdx.input.setInputProcessor(joystick);
+
+        x = 640;
+        y = 360;
     }
 
     public void tick() {
@@ -96,7 +104,7 @@ public class World {
 
 
 */
-
+/*
         final int scrw = Gdx.graphics.getWidth();
         final int scrh = Gdx.graphics.getHeight();
 
@@ -122,7 +130,9 @@ public class World {
         input.x = d ? 1 : a ? -1 : 0;
         input.y = w ? 1 : s ? -1 : 0;
 
-        input.nor();
+        input.nor();*/
+
+        input = joystick.getOutput();
 
         Vector2 ddesiredVel = new Vector2(input).scl(maxSpeed).sub(vel);
         Vector2 accel = new Vector2(ddesiredVel).nor().scl(traction);
@@ -182,7 +192,9 @@ public class World {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 1, 0.1f);
-        shapeRenderer.rect(0, 0, Gdx.graphics.getHeight() * js, Gdx.graphics.getHeight() * js);
+        shapeRenderer.circle(160,160,144);
+        shapeRenderer.circle(160 + joystick.getPosition().x, 160 + joystick.getPosition().y, 72);
+      //  shapeRenderer.rect(0, 0, Gdx.graphics.getHeight() * js, Gdx.graphics.getHeight() * js);
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
