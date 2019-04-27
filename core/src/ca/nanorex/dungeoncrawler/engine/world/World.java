@@ -81,7 +81,7 @@ public class World {
         vel = new Vector2();
 
 
-        joystick = new VirtualJoystick(new Vector2(160.0f,160.0f), 144.0f);
+        joystick = new VirtualJoystick(new Vector2(180.0f,180.0f), 144.0f);
         Gdx.input.setInputProcessor(joystick);
 
         x = 640;
@@ -192,8 +192,8 @@ public class World {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 1, 0.1f);
-        shapeRenderer.circle(160,160,144);
-        shapeRenderer.circle(160 + joystick.getPosition().x, 160 + joystick.getPosition().y, 72);
+        shapeRenderer.circle(180,180,144);
+        shapeRenderer.circle(180 + joystick.getPosition().x, 180 + joystick.getPosition().y, 72);
       //  shapeRenderer.rect(0, 0, Gdx.graphics.getHeight() * js, Gdx.graphics.getHeight() * js);
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);

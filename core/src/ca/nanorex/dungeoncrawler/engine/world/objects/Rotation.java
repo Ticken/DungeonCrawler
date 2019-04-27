@@ -84,7 +84,7 @@ public class Rotation {
     }
 
     public Rotation setRadians(float radians) {
-        value = (int)(radians / (2 * Math.PI) * count);
+        value = (int)Math.round(radians / (2 * Math.PI) * count) % count;
         update();
         return this;
     }
