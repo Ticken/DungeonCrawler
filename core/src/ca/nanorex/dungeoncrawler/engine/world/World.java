@@ -81,7 +81,7 @@ public class World {
         vel = new Vector2();
 
 
-        joystick = new VirtualJoystick(new Vector2(160.0f,160.0f));
+        joystick = new VirtualJoystick(new Vector2(160.0f,160.0f), 144.0f);
         Gdx.input.setInputProcessor(joystick);
 
         x = 640;

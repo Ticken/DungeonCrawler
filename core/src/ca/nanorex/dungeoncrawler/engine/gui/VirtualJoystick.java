@@ -6,16 +6,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class VirtualJoystick implements InputProcessor
 {
-    Vector2 center = new Vector2();
-    Vector2 position = new Vector2();
-    Vector2 output = new Vector2();
-    final float joystickRadius = 144;
-    final float deadZoneRadius = joystickRadius/5;
-    boolean touched = false;
+    private Vector2 center;
+    private Vector2 position = new Vector2();
+    private Vector2 output = new Vector2();
 
-    public VirtualJoystick(Vector2 center)
+    private float joystickRadius;
+    private float deadZoneRadius;
+    private boolean touched = false;
+
+    public VirtualJoystick(Vector2 center, float radius)
     {
         this.center = center;
+        joystickRadius = radius;
+        deadZoneRadius = joystickRadius/5;
     }
 
     public Vector2 getOutput()
@@ -86,7 +89,10 @@ public class VirtualJoystick implements InputProcessor
         else //active zone
         {
             position.set(delta);
-            output.set(new Vector2(position).setLength2(1));
+
+            output.set(new Vector2(position).setLength((position.len()- deadZoneRadius)/(joystickRadius - deadZoneRadius)));
+           // output.setLength((position.len()- deadZoneRadius)/(joystickRadius - deadZoneRadius));
+            //output.set(new Vector2(position).setLength2(1));
         }
 
         return false;
