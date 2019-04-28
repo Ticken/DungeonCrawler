@@ -2,45 +2,39 @@ package ca.nanorex.dungeoncrawler.engine.gui;
 
 import com.badlogic.gdx.InputProcessor;
 
-public class Button implements InputProcessor
+public abstract class Button implements InputProcessor
 {
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
+    enum ButtonState
+    {
+        DEFAULT,
+        PRESSED,
+        HOVER,
+        DISABLED
     }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+    public abstract ButtonState getButtonState();
 
     @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+    public abstract boolean keyDown(int keycode);
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+    public abstract boolean keyUp(int keycode);
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+    public abstract boolean keyTyped(char character);
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+    public abstract boolean touchDown(int screenX, int screenY, int pointer, int button);
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
+    public abstract boolean touchUp(int screenX, int screenY, int pointer, int button);
 
     @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
+    public abstract boolean touchDragged(int screenX, int screenY, int pointer);
+
+    @Override
+    public abstract boolean mouseMoved(int screenX, int screenY);
+
+    @Override
+    public abstract boolean scrolled(int amount);
 }
