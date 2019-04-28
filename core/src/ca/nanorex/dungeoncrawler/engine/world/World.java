@@ -11,7 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashMap;
 
 import ca.nanorex.dungeoncrawler.engine.Game;
+import ca.nanorex.dungeoncrawler.engine.gui.CircularButton;
 import ca.nanorex.dungeoncrawler.engine.gui.VirtualJoystick;
+import ca.nanorex.dungeoncrawler.engine.gui.RectangularButton;
 import ca.nanorex.dungeoncrawler.engine.render.renderers.SpriteRenderer;
 import ca.nanorex.dungeoncrawler.engine.render.sprite.Sprite;
 import ca.nanorex.dungeoncrawler.engine.render.sprite.SpriteModel;
@@ -83,6 +85,7 @@ public class World {
 
         joystick = new VirtualJoystick(new Vector2(180.0f,180.0f), 144.0f);
         Gdx.input.setInputProcessor(joystick);
+
 
         x = 640;
         y = 360;
@@ -195,6 +198,7 @@ public class World {
         shapeRenderer.circle(180,180,144);
         shapeRenderer.circle(180 + joystick.getPosition().x, 180 + joystick.getPosition().y, 72);
       //  shapeRenderer.rect(0, 0, Gdx.graphics.getHeight() * js, Gdx.graphics.getHeight() * js);
+
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
