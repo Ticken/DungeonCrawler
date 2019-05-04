@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ca.nanorex.dungeoncrawler.engine.assets.AssetLibrary;
+import ca.nanorex.dungeoncrawler.engine.event.EventManager;
 
 public abstract class Game implements ApplicationListener {
 
@@ -23,14 +24,22 @@ public abstract class Game implements ApplicationListener {
 
     private AssetLibrary assetLibrary;
 
+    private EventManager eventManager;
+
+    private MasterInputProcessor masterInputProcessor;
+
     public Game() {
         screens = new HashMap<String, Screen>();
         assetLibrary =  new AssetLibrary();
+
+        eventManager = new EventManager();
+
+        masterInputProcessor = new MasterInputProcessor();
     }
 
     @Override
     public void create() {
-        //perhaps this should not be defined here?
+        Gdx.input.setInputProcessor(masterInputProcessor);
     }
 
     @Override
@@ -135,12 +144,18 @@ public abstract class Game implements ApplicationListener {
 
         currentScreen = screens.get(screenName);
 
-        if (currentScreen != null)
+        if (currentScreen != null) {
             currentScreen.show();
+            masterInputProcessor.setInputProcessors(currentScreen.getInputProcessors());
+        }
     }
 
 
     public static AssetLibrary getAssetLibrary() {
         return ((Game)Gdx.app.getApplicationListener()).assetLibrary;
+    }
+
+    public static EventManager getEventManager() {
+        return ((Game)Gdx.app.getApplicationListener()).eventManager;
     }
 }

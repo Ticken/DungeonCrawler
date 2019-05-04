@@ -11,6 +11,8 @@ public class DungeonCrawler extends Game {
 
     @Override
     public void create() {
+        super.create();
+
         screens.put("game", new GameScreen(this));
         setScreen("game");
     }

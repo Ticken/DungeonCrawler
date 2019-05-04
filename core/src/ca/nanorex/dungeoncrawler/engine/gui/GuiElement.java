@@ -1,4 +1,6 @@
 package ca.nanorex.dungeoncrawler.engine.gui;
 
-public class Gui {
+public interface GuiElement {
+
+    void tick();
 }

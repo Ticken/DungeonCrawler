@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.nanorex.dungeoncrawler.engine.Game;
-import ca.nanorex.dungeoncrawler.engine.world.objects.Rotation;
+import ca.nanorex.dungeoncrawler.engine.util.Rotation;
 
 public class Sprite {
 
@@ -39,7 +39,7 @@ public class Sprite {
 
         pos = new Vector2();
         prevPos = new Vector2();
-        rotation = new Rotation(this.model.rotCount);
+        rotation = new Rotation();
 
         playAnimation(this.model.defaultAnimation, 1, false);
     }
@@ -230,8 +230,8 @@ public class Sprite {
             int frameIndex = activeAnimation.getFrame(activeAnimationData);
 
             int layerIndex = model.layers.get(layerName).textureIndex;
-            int rotationCount = model.rotCount.value;
-            int rotationIndex = rotation.getValue();
+            int rotationCount = model.rotCount;
+            int rotationIndex = rotation.getFraction(model.rotCount);
 
             int x = (animationIndex + frameIndex) * tileWidth;
             int y = (layerIndex * rotationCount + rotationIndex) * tileHeight;

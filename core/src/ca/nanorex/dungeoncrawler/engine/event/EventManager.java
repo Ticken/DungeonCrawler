@@ -47,7 +47,7 @@ public class EventManager {
         listener.eventClass = eventClass;
     }
 
-    public <T extends Event> void unregisterListener(EventListener<T> listener) {
+    <T extends Event> void unregisterListener(EventListener<T> listener) {
 
         //Get listener list
         List<EventListener<? extends Event>> listenerList = listeners.get(listener.eventClass);

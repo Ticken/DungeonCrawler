@@ -1,19 +1,25 @@
 package ca.nanorex.dungeoncrawler.engine;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.nanorex.dungeoncrawler.engine.world.system.GameSystem;
-
 public abstract class Screen implements Disposable {
 
     private Game game;
+    protected List<InputProcessor> inputProcessors;
 
     public Screen(Game game) {
 
         this.game = game;
+
+        inputProcessors = new ArrayList<InputProcessor>();
+    }
+
+    public List<InputProcessor> getInputProcessors() {
+        return inputProcessors;
     }
 
     /**

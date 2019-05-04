@@ -4,19 +4,18 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import ca.nanorex.dungeoncrawler.engine.world.objects.Rotation;
+import ca.nanorex.dungeoncrawler.engine.util.Rotation;
 
 public class SpriteModel {
 
     String name;
     Vector2 offset;
-    Rotation.Count rotCount;
+    int rotCount;
     String defaultAnimation;
 
     Map<String, SpriteModelLayer> layers;
@@ -33,7 +32,7 @@ public class SpriteModel {
         //Root level properties
         name = jsonRoot.getString("name");
         offset = new Vector2(0, jsonRoot.getInt("y_offset"));
-        rotCount = Rotation.Count.fromInt(jsonRoot.getInt("directions"));
+        rotCount = jsonRoot.getInt("directions");
         defaultAnimation = jsonRoot.getString("default_animation");
 
         //Layer properties

@@ -1,13 +1,14 @@
 package ca.nanorex.dungeoncrawler.engine.world.objects;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import ca.nanorex.dungeoncrawler.engine.world.objects.components.ObjectComponent;
+import ca.nanorex.dungeoncrawler.engine.util.Rotation;
 
 public class GameObject {
 
@@ -15,14 +16,15 @@ public class GameObject {
 
     private String type;
     private Set<String> tags;
-    private Vector3 pos;
-    //needs rotation??
 
-    private Map<Class<? extends ObjectComponent>, ObjectComponent> components;
+    private Map<Class<? extends BaseComponent>, BaseComponent> components;
+    private Map<BaseComponent.Category, Class<? extends BaseComponent>> categories;
 
     public GameObject() {
         tags = new HashSet<String>();
-        pos = new Vector3();
+
+        components = new HashMap<Class<? extends BaseComponent>, BaseComponent>();
+        categories = new HashMap<BaseComponent.Category, Class<? extends BaseComponent>>();
     }
 
     public String getType() {
@@ -45,27 +47,36 @@ public class GameObject {
         tags.remove(tag);
     }
 
-    public Vector3 getPos() {
-        return pos;
-    }
-
-    public <T extends ObjectComponent> boolean hasComponent(Class<T> type) {
-        return components.get(type) != null;
-    }
-
-    public <T extends ObjectComponent> T getComponent(Class<T> type) {
+    public <T extends BaseComponent> T getComponent(Class<T> type) {
         return type.cast(components.get(type));
     }
 
-    public void setComponent(Class<? extends ObjectComponent> componentType,
-                             ObjectComponent component) {
+    public void setComponent(Class<? extends BaseComponent> componentType,
+                             BaseComponent component) {
 
         if (component != null) {
+            //Add or replace the component
+
+            //If the object already has a component of the same category, remove the old component
+            if (categories.containsKey(component.getCategory()))
+                setComponent(categories.get(component.getCategory()), null);
+
+            //Add component to component and category maps
             components.put(componentType, component);
+            categories.put(component.getCategory(), componentType);
+
+            //Register component in manager
             if (manager != null)
                 manager.registerComponent(this, componentType);
-        } else {
+
+        } else if (components.get(componentType) != null) {
+            //Remove the component
+
+            //Remove component from component and category maps
+            categories.remove(components.get(componentType).getCategory());
             components.remove(componentType);
+
+            //Unregister component in manager
             if (manager != null)
                 manager.unregisterComponent(this, componentType);
         }
@@ -75,7 +86,7 @@ public class GameObject {
         this.manager = manager;
     }
 
-    Map<Class<? extends ObjectComponent>, ObjectComponent> getComponents() {
+    Map<Class<? extends BaseComponent>, BaseComponent> getComponents() {
         return components;
     }
 }

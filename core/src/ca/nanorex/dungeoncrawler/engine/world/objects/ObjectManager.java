@@ -5,23 +5,21 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import ca.nanorex.dungeoncrawler.engine.world.objects.components.ObjectComponent;
-
 public class ObjectManager {
 
     private Set<GameObject> objects;
-    private Map<Class<? extends ObjectComponent>, Set<GameObject>> objectsByComponent;
+    private Map<Class<? extends BaseComponent>, Set<GameObject>> objectsByComponent;
 
     public ObjectManager() {
         objects = new HashSet<GameObject>();
-        objectsByComponent = new HashMap<Class<? extends ObjectComponent>, Set<GameObject>>();
+        objectsByComponent = new HashMap<Class<? extends BaseComponent>, Set<GameObject>>();
     }
 
-    public Set<GameObject> getObjects() {
+    public Set<GameObject> get() {
         return objects;
     }
 
-    public Set<GameObject> getObjectsWithComponent(Class<? extends ObjectComponent> componentType) {
+    public Set<GameObject> getWithComponent(Class<? extends BaseComponent> componentType) {
         return objectsByComponent.get(componentType);
     }
 
@@ -29,7 +27,7 @@ public class ObjectManager {
 
         objects.add(object);
 
-        for (Class<? extends ObjectComponent> componentType: object.getComponents().keySet()) {
+        for (Class<? extends BaseComponent> componentType: object.getComponents().keySet()) {
 
             if (objectsByComponent.get(componentType) == null)
                 objectsByComponent.put(componentType, new HashSet<GameObject>());
@@ -44,7 +42,7 @@ public class ObjectManager {
 
         objects.remove(object);
 
-        for (Class<? extends ObjectComponent> componentType: object.getComponents().keySet()) {
+        for (Class<? extends BaseComponent> componentType: object.getComponents().keySet()) {
 
             if (objectsByComponent.get(componentType) == null)
                 objectsByComponent.put(componentType, new HashSet<GameObject>());
@@ -55,7 +53,7 @@ public class ObjectManager {
         object.setManager(null);
     }
 
-    void registerComponent(GameObject object, Class<? extends ObjectComponent> componentType) {
+    void registerComponent(GameObject object, Class<? extends BaseComponent> componentType) {
 
         //Add new set if doesn't exist
         if (objectsByComponent.get(componentType) == null)
@@ -65,7 +63,7 @@ public class ObjectManager {
         objectsByComponent.get(componentType).add(object);
     }
 
-    void unregisterComponent(GameObject object, Class<? extends ObjectComponent> componentType) {
+    void unregisterComponent(GameObject object, Class<? extends BaseComponent> componentType) {
 
         //Remove from object set if it exists
         if (objectsByComponent.get(componentType) != null)

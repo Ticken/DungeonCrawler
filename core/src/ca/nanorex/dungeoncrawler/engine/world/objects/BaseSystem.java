@@ -1,12 +1,18 @@
-package ca.nanorex.dungeoncrawler.engine.world.system;
+package ca.nanorex.dungeoncrawler.engine.world.objects;
 
 import com.badlogic.gdx.utils.Disposable;
 
-public abstract class GameSystem implements Disposable {
+import ca.nanorex.dungeoncrawler.engine.world.World;
+
+public abstract class BaseSystem implements Disposable {
 
     private boolean enabled;
 
-    public GameSystem() {
+    protected World world;
+
+    public BaseSystem(World world) {
+
+        this.world = world;
 
         enabled = true;
     }
