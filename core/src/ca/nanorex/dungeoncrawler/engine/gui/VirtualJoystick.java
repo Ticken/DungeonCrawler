@@ -13,6 +13,7 @@ public class VirtualJoystick implements InputProcessor
     private float joystickRadius;
     private float deadZoneRadius;
     private boolean touched = false;
+    private int currentFinger;
 
     public VirtualJoystick(Vector2 center, float radius)
     {
@@ -45,11 +46,16 @@ public class VirtualJoystick implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        float distance = new Vector2(screenX, Gdx.graphics.getHeight() - screenY).dst2(center);
-        if (distance <= joystickRadius * joystickRadius)
-            touched = true;
+        if (currentFinger == -1)
+        {
+            currentFinger = pointer;
 
-        touchDragged(screenX, screenY, pointer);
+            float distance = new Vector2(screenX, Gdx.graphics.getHeight() - screenY).dst2(center);
+            if (distance <= joystickRadius * joystickRadius)
+                touched = true;
+
+            touchDragged(screenX, screenY, pointer);
+        }
 
         return false;
     }
@@ -57,9 +63,14 @@ public class VirtualJoystick implements InputProcessor
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        position.set(Vector2.Zero);
-        output.set(Vector2.Zero);
-        touched = false;
+        if (pointer == currentFinger)
+        {
+            position.set(Vector2.Zero);
+            output.set(Vector2.Zero);
+            touched = false;
+
+            currentFinger = -1;
+        }
         return false;
     }
 
